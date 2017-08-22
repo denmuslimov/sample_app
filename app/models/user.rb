@@ -9,8 +9,11 @@ class User < ApplicationRecord
 	validates :email, presence: true, length: { maximum: 255 }, 
 					format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false}
 
+	# Enforce validation on both: passord and its confirmation.
 	has_secure_password
-	validates :password, presence: true, length: { minimum: 6 }
+	# "allow_nil: true" makes UPDATE name without updating password possible.
+	# New users won't be able to sign up with empty password because of "has_secure_password"
+	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
 	# Returns the hash digest of the given string.
 	def User.digest(string)
