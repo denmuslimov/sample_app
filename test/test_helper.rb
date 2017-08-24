@@ -18,6 +18,11 @@ class ActiveSupport::TestCase
 		session[:user_id] = user.id
 	end
 
+	# Log out
+	def log_out_now
+		session.delete(:user_id)
+	end
+
 end
 
 

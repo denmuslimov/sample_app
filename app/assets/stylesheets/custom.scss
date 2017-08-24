@@ -157,6 +157,19 @@ input { height: auto !important; }
 }
 
 
+/* Users index */
+.users {
+	list-style: none;
+	margin: 0;
+	li {
+		overflow: auto;
+		padding: 10px 0;
+		border-bottom: 1px solid $gray-lighter;
+	}
+}
+
+
+
 /* For the <<Under Construction>> image */
 #under_construction { text-align: center; }
 

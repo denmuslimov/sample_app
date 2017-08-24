@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 			# Use cookie to remember user IF the check box "remember_me" is checked
 			params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
 			
-			redirect_to @user		# Redirect to the user's show page
+			redirect_back_or(@user)		# Redirect to the last visited page / user's show page
 		else
 			# Create an error message that will last ONLY one screen
 			flash.now[:danger] = 'Invalid email/password combination'
