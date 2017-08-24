@@ -8,11 +8,16 @@ class SessionsController < ApplicationController
 		@user = User.find_by(email: params[:session][:email].downcase)
 
 		if @user && @user.authenticate(params[:session][:password])
-			log_in @user			# Use helper function to remember user (session)
-			# Use cookie to remember user IF the check box "remember_me" is checked
-			params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-			
-			redirect_back_or(@user)		# Redirect to the last visited page / user's show page
+			if @user.activated?
+				log_in @user			# Use helper function to remember user (session)
+				# Use cookie to remember user IF the check box "remember_me" is checked
+				params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+				redirect_back_or(@user)		# Redirect to the last visited page / user's show page
+			else
+				message = "Account not activated. Check your email for the activation link."
+				flash[:warning] = message
+				redirect_to root_url
+			end
 		else
 			# Create an error message that will last ONLY one screen
 			flash.now[:danger] = 'Invalid email/password combination'
