@@ -15,7 +15,8 @@ Rails.application.routes.draw do
 
 	# Add CRUD functionality
 	resources :users
-	resources :account_activations, only: [:edit]
+	resources :account_activations,	only: [:edit]
+	resources :password_resets,     only: [:new, :create, :edit, :update]
 
 
 #	get 'static_pages/home'
